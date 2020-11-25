@@ -514,7 +514,7 @@ class Upgrader {
     }
   }
 
-  void onUserUpdated(BuildContext context, bool shouldPop) {
+  Future<void> onUserUpdated(BuildContext context, bool shouldPop) async {
     if (debugLogging) {
       print('upgrader: button tapped: update now');
     }
@@ -528,10 +528,13 @@ class Upgrader {
     if (doProcess) {
       _sendUserToAppStore();
     }
+    _packageInfo = await PackageInfo.fromPlatform();
 
-    // if (shouldPop) {
-    //   _pop(context);
-    // }
+    _installedVersion = _packageInfo.version;
+
+    if (_installedVersion == currentAppStoreVersion()) {
+      _pop(context);
+    }
   }
 
   Future<bool> clearSavedSettings() async {
