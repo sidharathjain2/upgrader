@@ -529,9 +529,9 @@ class Upgrader {
       _sendUserToAppStore();
     }
 
-    if (shouldPop) {
-      _pop(context);
-    }
+    // if (shouldPop) {
+    //   _pop(context);
+    // }
   }
 
   Future<bool> clearSavedSettings() async {
