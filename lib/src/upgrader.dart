@@ -405,9 +405,14 @@ class Upgrader {
       barrierDismissible: canDismissDialog,
       context: context,
       builder: (BuildContext context) {
-        return dialogStyle == UpgradeDialogStyle.material
-            ? _alertDialog(title, message, context)
-            : _cupertinoAlertDialog(title, message, context);
+        return WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: dialogStyle == UpgradeDialogStyle.material
+              ? _alertDialog(title, message, context)
+              : _cupertinoAlertDialog(title, message, context),
+        );
       },
     );
   }
